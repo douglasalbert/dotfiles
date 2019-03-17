@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Docker
+alias dk="docker"
+alias dkps="docker ps"
+alias dki="docker inspect"
+alias dkr="docker restart"
+alias dkl="docker logs --tail=20 -f"
+alias dkc="docker-compose"
+
+# filesystem
+alias l='ls -hFG'
+alias ls='ls -hFG'
+alias ll='ls -lhFG'
+alias la='ls -Al'
+alias lk='ls -lSr'
+alias lc='ls -ltcr'
+alias lu='ls -ltur'
+alias lt='ls -ltr'
+alias lm='ls -al |more'
+alias lr='ls -lR'
+alias tree='tree -Csu'
+alias ..='cd ..'

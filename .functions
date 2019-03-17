@@ -1,0 +1,47 @@
+#!/bin/bash
+# Docker
+docker-ip() { docker inspect "${1}" | jq -r .[0].NetworkSettings.IPAddress; }
+
+#------------------------------------------------------------
+# Utility Functions
+#-------------------------------------------------------------
+
+wgetall() {
+    wget -r -np -nc --restrict-file-names=nocontrol \
+    --reject "index.html*" "$*";
+}
+
+dotcleanunmount() {
+    dot_clean -m "$1"
+    if [ -d "$1/.Spotlight-V100" ]; then
+        rm -rf "$1/.Spotlight-V100"
+    fi
+    if [ -d "$1/Trashes" ]; then
+        rm -rf "$1/Trashes"
+    fi
+    if [ -d "$1/.fseventsd" ]; then
+        rm -rf "$1/.fseventsd"
+    fi
+    diskutil unmount "$1"
+}
+
+extract() {
+  if [ -f "$1" ] ; then
+    case "$1" in
+      *.tar.bz2)        tar xvjpf "$1"    ;;
+      *.tar.gz)         tar xzf "$1"      ;;
+      *.bz2)            bunzip2 "$1"      ;;
+      *.rar)            unrar e "$1"      ;;
+      *.gz)             gunzip "$1"       ;;
+      *.tar)            tar xf "$1"       ;;
+      *.tbz2)           tar xjf "$1"      ;;
+      *.tgz)            tar xzf "$1"      ;;
+      *.zip)            unzip "$1"        ;;
+      *.Z)              uncompress "$1"   ;;
+      *.7z)             7z x "$1"         ;;
+      *)                echo "'$1' is not an archive covered by this function"
+    esac
+    else
+      echo "'$1' is not a valid file"
+    fi
+}

@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# local bin
+export PATH="/usr/local/bin:${PATH}:/sbin"
+
+# home bin
+export PATH="${HOME}/.local/bin:${PATH}"
