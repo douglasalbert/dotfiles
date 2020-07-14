@@ -5,11 +5,16 @@ help:
 .PHONY: install
 install: ## Installs the dotfiles.
 	# add aliases for dotfiles
-	for file in $(shell find $(CURDIR) -name ".*" -not -name ".gitignore" name ".git" -not -name ".*.swp" -not -name ".gnupg"); do \
-		f=$$(basename $$file); \
-		ln -sfn $$file $(HOME)/$$f; \
-	done; \
+	ln -fn $(CURDIR)/.aliases $(HOME)/.aliases
+	ln -fn $(CURDIR)/.exports $(HOME)/.exports
+	ln -fn $(CURDIR)/.functions $(HOME)/.functions
+	ln -fn $(CURDIR)/.gitconfig $(HOME)/.gitconfig
 	ln -fn $(CURDIR)/.gitignore_global $(HOME)/.gitignore_global
+	ln -fn $(CURDIR)/.bash_prompt $(HOME)/.bash_prompt
+	ln -fn $(CURDIR)/.bashrc $(HOME)/.bashrc
+	ln -fn $(CURDIR)/.zshrc $(HOME)/.zshrc
+	ln -fn $(CURDIR)/.zsh_prompt $(HOME)/.zsh_prompt
+	ln -fn $(CURDIR)/.tmux.conf $(HOME)/.tmux.conf
 	mkdir -p $(HOME)/.config;
 	mkdir -p $(HOME)/.local/share;
 	ln -snf $(CURDIR)/.fonts $(HOME)/.local/share/fonts;

@@ -1,20 +1,14 @@
 #!/usr/bin/env zsh
 
 export DOTFILES=$HOME/.dotfiles
-# export INCLUDES=$HOME/.local/share/dotfiles
 
-for file in $DOTFILES/.{aliases,functions,path,bash_profile.local,exports}; do
+for file in $DOTFILES/.{aliases,functions,path,profile.local,exports}; do
 	if [[ -r "$file" ]] && [[ -f "$file" ]]; then
 		# shellcheck source=/dev/null
 		source "$file"
 	fi
 done
 unset file
-# eval `dircolors $DOTFILES/dircolors`
-# 
-# source $INCLUDES/zsh-completions/zsh-completions.plugin.zsh
-# source $INCLUDES/zsh-history-substring-search/zsh-history-substring-search.zsh
-# source $INCLUDES/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=10000
@@ -50,4 +44,5 @@ bindkey '^a' beginning-of-line
 bindkey '^e' end-of-line
 
 source $HOME/.zsh_prompt
-# source $HOME/.fzf.zsh
+source $HOME/.fzf.zsh
+export SSH_AUTH_SOCK="/usr/local/var/run/yubikey-agent.sock"
