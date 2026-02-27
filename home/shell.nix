@@ -60,6 +60,18 @@ in
     "/usr/local/bin"
   ];
 
+  programs.starship = {
+    enable = true;
+    enableBashIntegration = true;
+    enableZshIntegration = true;
+  };
+
+  programs.zoxide = {
+    enable = true;
+    enableBashIntegration = true;
+    enableZshIntegration = true;
+  };
+
   programs.bash = {
     enable = true;
     inherit shellAliases;
@@ -75,11 +87,6 @@ in
 
     initExtra = ''
       ${shellFunctions}
-
-      # Source prompt
-      if [[ -r "$HOME/.bash_prompt" ]] && [[ -f "$HOME/.bash_prompt" ]]; then
-        source "$HOME/.bash_prompt"
-      fi
 
       # Source local machine-specific config
       if [[ -r "$HOME/.bash_profile.local" ]] && [[ -f "$HOME/.bash_profile.local" ]]; then
@@ -142,9 +149,6 @@ in
       bindkey '^e' end-of-line
 
       ${shellFunctions}
-
-      # Source prompt
-      source "$HOME/.zsh_prompt"
 
       # Source fzf config
       if [[ -f "$HOME/.fzf.zsh" ]]; then

@@ -49,6 +49,6 @@
       darwinConfigurations."daMacStudio" = mkDarwin "daMacStudio";
       darwinConfigurations."daMBP" = mkDarwin "daMBP";
 
-      formatter.${system} = inputs.nixpkgs.legacyPackages.${system}.nixfmt-rfc-style;
+      formatter.${system} = inputs.nixpkgs.legacyPackages.${system}.nixfmt;
     };
 }

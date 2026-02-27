@@ -6,6 +6,7 @@
     ./git.nix
     ./tmux.nix
     ./vim.nix
+    ./ghostty.nix
   ];
 
   home.username = "da";
@@ -30,6 +31,7 @@
     mosh
     neovim
     ripgrep
+    shellcheck
     signal-cli
     tree
     wget
