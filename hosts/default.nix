@@ -33,22 +33,24 @@
 
     brews = [
       "gemini-cli"
+      "container"
     ];
 
     casks = [
-      "aerospace"
+      "nikitabobko/tap/aerospace"
       "claude"
-      "container"
       "discord"
       "ghostty"
       "google-chrome"
       "gstreamer-runtime"
       "handbrake"
+      "iina"
       "lm-studio"
       "mac-mouse-fix"
       "rustdesk"
       "signal"
       "stolendata-mpv"
+      "tailscale"
       "transmission"
       "zed"
     ];
@@ -147,46 +149,10 @@
     CustomUserPreferences = {
       # Safari
       "com.apple.Safari" = {
-        UniversalSearchEnabled = false;
-        SuppressSearchSuggestions = true;
-        WebKitTabToLinksPreferenceKey = true;
-        "com.apple.Safari.ContentPageGroupIdentifier.WebKit2TabsToLinks" = true;
-        ShowFullURLInSmartSearchField = true;
-        HomePage = "about:blank";
-        AutoOpenSafeDownloads = false;
-        "com.apple.Safari.ContentPageGroupIdentifier.WebKit2BackspaceKeyNavigationEnabled" = true;
-        ShowFavoritesBar = false;
-        ShowSidebarInTopSites = false;
-        DebugSnapshotsUpdatePolicy = 2;
-        IncludeInternalDebugMenu = true;
-        FindOnPageMatchesWordStartsOnly = false;
-        IncludeDevelopMenu = true;
-        WebKitDeveloperExtrasEnabledPreferenceKey = true;
-        "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" = true;
-        WebContinuousSpellCheckingEnabled = true;
-        WebAutomaticSpellingCorrectionEnabled = false;
-        AutoFillFromAddressBook = false;
-        AutoFillPasswords = false;
-        AutoFillCreditCardData = false;
-        AutoFillMiscellaneousForms = false;
-        WarnAboutFraudulentWebsites = true;
-        WebKitPluginsEnabled = false;
-        "com.apple.Safari.ContentPageGroupIdentifier.WebKit2PluginsEnabled" = false;
-        WebKitJavaEnabled = false;
-        "com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaEnabled" = false;
-        WebKitJavaScriptCanOpenWindowsAutomatically = false;
-        "com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaScriptCanOpenWindowsAutomatically" = false;
-        SendDoNotTrackHTTPHeader = true;
-        InstallExtensionUpdatesAutomatically = true;
       };
 
       # Mail
       "com.apple.mail" = {
-        DisableReplyAnimations = true;
-        DisableSendAnimations = true;
-        AddressesIncludeNameOnPasteboard = false;
-        DisableInlineAttachmentViewing = true;
-        SpellCheckingBehavior = "NoSpellCheckingEnabled";
       };
 
       # Messages

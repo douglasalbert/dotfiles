@@ -39,4 +39,5 @@
   # Keep prompt files as raw files (complex prompt logic)
   home.file.".bash_prompt".source = ../files/bash_prompt;
   home.file.".zsh_prompt".source = ../files/zsh_prompt;
+  home.file.".config/aerospace/aerospace.toml".source = ../files/aerospace.toml;
 }
