@@ -1,0 +1,53 @@
+{
+  description = "da's dotfiles — nix-darwin + home-manager + Determinate Nix";
+
+  inputs = {
+    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0";
+
+    nix-darwin = {
+      url = "https://flakehub.com/f/nix-darwin/nix-darwin/0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    determinate = {
+      url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
+
+  outputs =
+    { self, ... }@inputs:
+    let
+      system = "aarch64-darwin";
+      mkDarwin =
+        hostname:
+        inputs.nix-darwin.lib.darwinSystem {
+          inherit system;
+          specialArgs = { inherit inputs hostname; };
+          modules = [
+            inputs.determinate.darwinModules.default
+            ./hosts/default.nix
+            inputs.home-manager.darwinModules.home-manager
+            {
+              determinateNix.enable = true;
+
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.backupFileExtension = "bak";
+              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.users.da = import ./home/default.nix;
+            }
+          ];
+        };
+    in
+    {
+      darwinConfigurations."daMacStudio" = mkDarwin "daMacStudio";
+
+      formatter.${system} = inputs.nixpkgs.legacyPackages.${system}.nixfmt-rfc-style;
+    };
+}
