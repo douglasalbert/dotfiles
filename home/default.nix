@@ -17,8 +17,11 @@
   programs.home-manager.enable = true;
 
   home.packages = with pkgs; [
+    actionlint
+    ast-grep
     colima
     docker-compose
+    fd
     fzf
     gh
     go
@@ -30,11 +33,16 @@
     mediainfo
     mosh
     neovim
+    nodejs_22
+    pnpm
     ripgrep
     shellcheck
+    shfmt
     signal-cli
     tree
+    uv
     wget
+    zizmor
     zsh-completions
   ];
 

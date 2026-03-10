@@ -34,6 +34,7 @@
     brews = [
       "gemini-cli"
       "container"
+      "macos-trash"
     ];
 
     casks = [
