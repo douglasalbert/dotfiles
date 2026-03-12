@@ -1,33 +1,66 @@
 # dotfiles
 
-[![works badge](https://cdn.jsdelivr.net/gh/nikku/works-on-my-machine@v0.2.0/badge.svg)](https://github.com/nikku/works-on-my-machine)
+Personal macOS dotfiles managed declaratively with **nix-darwin** (system-level config) and **home-manager** (user-level packages and dotfiles). Targets Apple Silicon (aarch64-darwin).
 
-## About
+## Bootstrap
 
-### Installation
+### Prerequisites
 
-```console
-$ make
+1. **Install Xcode Command Line Tools** (required for git and compilers):
+
+   ```sh
+   xcode-select --install
+   ```
+
+2. **Install Determinate Nix** (recommended over the official installer — handles macOS upgrades gracefully):
+
+   ```sh
+   curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+   ```
+
+   Open a new terminal to pick up the Nix environment.
+
+3. **Install Homebrew** (nix-darwin manages casks/brews but Homebrew itself must be installed first):
+
+   ```sh
+   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+   ```
+
+### First-time install
+
+Clone the repo and apply:
+
+```sh
+git clone https://github.com/douglasalbert/dotfiles ~/.config/nix-darwin
+cd ~/.config/nix-darwin
+nix run nix-darwin -- switch --flake .
 ```
 
-### Configuration
+## Usage
 
-Sensitive environment variables and other configuration are sourced out of a
-`.bash_profile.local` file
+**Apply changes:**
 
-```bash
-### git
-GIT_AUTHOR_NAME="Unknown Author"
-GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
-GIT_AUTHOR_EMAIL=""
-GIT_COMMITER_EMAIL="$GIT_AUTHOR_EMAIL"
-GH_USER="handle"
-
-git config --global user.email "$GIT_AUTHOR_EMAIL"
-git config --global user.name "$GIT_AUTHOR_NAME"
-git config --global github.user "$GH_USER"
+```sh
+darwin-rebuild switch --flake .
 ```
 
-## Notes
+**Validate flake syntax without applying:**
 
-As the above badge notes, this has only been tested on my own machines.
+```sh
+nix flake check
+```
+
+**Update all flake inputs (nixpkgs, nix-darwin, home-manager):**
+
+```sh
+nix flake update
+```
+
+## Machine-specific secrets
+
+Sensitive config (API keys, work credentials, etc.) goes in local files that are sourced at shell startup but never committed:
+
+| Shell | File |
+|-------|------|
+| Bash  | `~/.bash_profile.local` |
+| Zsh   | `~/.profile.local` |

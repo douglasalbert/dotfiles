@@ -6,6 +6,7 @@
     lfs.enable = true;
     settings.user.name = "Douglas Albert";
     settings.user.email = "8334731+douglasalbert@users.noreply.github.com";
+    settings.github.user = "douglasalbert";
 
     ignores = [
       # macOS
