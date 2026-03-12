@@ -43,8 +43,6 @@ let
 in
 {
   home.sessionVariables = {
-    EDITOR = "nvim";
-    TERMINAL = "urxvt";
     HISTSIZE = "50000000";
     HISTFILESIZE = "50000000";
     HISTCONTROL = "ignoredups";

@@ -1,4 +1,4 @@
-{ pkgs, hostname, ... }:
+{ hostname, ... }:
 
 {
   # Primary user (required by nix-darwin for user-scoped defaults)
