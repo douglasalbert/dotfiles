@@ -137,14 +137,6 @@
 
     # Custom preferences for apps not covered by built-in nix-darwin options
     CustomUserPreferences = {
-      # Safari
-      "com.apple.Safari" = {
-      };
-
-      # Mail
-      "com.apple.mail" = {
-      };
-
       # Messages
       "com.apple.messageshelper.MessageController" = {
         SOInputLineSettings = {
@@ -230,7 +222,7 @@
     chflags nohidden ~/Library || true
 
     # Show the /Volumes folder
-    sudo chflags nohidden /Volumes || true
+    chflags nohidden /Volumes || true
 
     # Finder: show item info and snap-to-grid via PlistBuddy
     /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist 2>/dev/null || true

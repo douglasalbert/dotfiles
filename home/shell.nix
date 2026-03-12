@@ -45,8 +45,6 @@ in
   home.sessionVariables = {
     HISTSIZE = "50000000";
     HISTFILESIZE = "50000000";
-    HISTCONTROL = "ignoredups";
-    HISTIGNORE = " *:ls:cd:cd -:pwd:exit:date:* --help:* -h:pony:pony add *:pony update *:pony save *:pony ls:pony ls *";
     LANG = "en_US.UTF-8";
     LC_ALL = "en_US.UTF-8";
     MANPAGER = "less -X";
@@ -54,7 +52,6 @@ in
 
   home.sessionPath = [
     "$HOME/.local/bin"
-    "/usr/local/bin"
   ];
 
   programs.starship = {
@@ -130,9 +127,8 @@ in
     inherit shellAliases;
 
     history = {
-      size = 10000;
-      save = 10000;
-      path = "$HOME/.zsh_history";
+      size = 50000000;
+      save = 50000000;
       extended = true;
       expireDuplicatesFirst = true;
       ignoreDups = true;
@@ -159,7 +155,6 @@ in
       setopt auto_menu
       setopt complete_in_word
       setopt hist_verify
-      setopt inc_append_history
       setopt interactivecomments
 
       # Vi keybindings with emacs overrides for line navigation
