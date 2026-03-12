@@ -25,7 +25,7 @@
     let
       system = "aarch64-darwin";
       mkDarwin =
-        hostname:
+        hostname: extraModules:
         inputs.nix-darwin.lib.darwinSystem {
           inherit system;
           specialArgs = { inherit inputs hostname; };
@@ -42,13 +42,13 @@
               home-manager.extraSpecialArgs = { inherit inputs; };
               home-manager.users.da = import ./home/default.nix;
             }
-          ];
+          ] ++ extraModules;
         };
     in
     {
-      darwinConfigurations."daMacStudio" = mkDarwin "daMacStudio";
-      darwinConfigurations."daMBP" = mkDarwin "daMBP";
-      darwinConfigurations."daMacBook" = mkDarwin "daMacBook";
+      darwinConfigurations."daMacStudio" = mkDarwin "daMacStudio" [ ./hosts/daMacStudio.nix ];
+      darwinConfigurations."daMBP" = mkDarwin "daMBP" [ ];
+      darwinConfigurations."daMacBook" = mkDarwin "daMacBook" [ ];
 
       formatter.${system} = inputs.nixpkgs.legacyPackages.${system}.nixfmt;
     };
