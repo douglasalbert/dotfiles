@@ -31,7 +31,6 @@
     markdownlint-cli2
     mediainfo
     mosh
-    neovim
     nodejs_22
     pnpm
     ripgrep

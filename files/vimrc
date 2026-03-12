@@ -1,17 +1,3 @@
-"
-" plugins
-"
-call g:plug#begin()
-
-Plug 'tpope/vim-fugitive'
-Plug 'vim-airline/vim-airline'
-Plug 'altercation/vim-colors-solarized'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'sheerun/vim-polyglot'
-Plug 'nanotee/zoxide.vim'
-
-call g:plug#end()
-
 " airline config
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1

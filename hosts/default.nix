@@ -16,11 +16,6 @@
     home = "/Users/da";
   };
 
-  # System packages
-  environment.systemPackages = with pkgs; [
-    git
-  ];
-
   # Homebrew integration for casks and packages not in nixpkgs
   homebrew = {
     enable = true;

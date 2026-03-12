@@ -52,7 +52,6 @@ in
     LANG = "en_US.UTF-8";
     LC_ALL = "en_US.UTF-8";
     MANPAGER = "less -X";
-    SSH_AUTH_SOCK = "/usr/local/var/run/yubikey-agent.sock";
   };
 
   home.sessionPath = [
