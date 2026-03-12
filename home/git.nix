@@ -4,6 +4,8 @@
   programs.git = {
     enable = true;
     lfs.enable = true;
+    settings.user.name = "Douglas Albert";
+    settings.user.email = "8334731+douglasalbert@users.noreply.github.com";
 
     ignores = [
       # macOS
@@ -229,6 +231,8 @@
         };
       };
       rerere.enabled = true;
+      credential."https://github.com".helper = "!/usr/bin/env gh auth git-credential";
+      credential."https://gist.github.com".helper = "!/usr/bin/env gh auth git-credential";
     };
   };
 }

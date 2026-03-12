@@ -38,17 +38,11 @@
     ];
 
     casks = [
-      "nikitabobko/tap/aerospace"
       "claude"
-      "discord"
+      "claude-code"
       "ghostty"
       "google-chrome"
-      "gstreamer-runtime"
-      "handbrake-app"
       "iina"
-      "lm-studio"
-      "mac-mouse-fix"
-      "rustdesk"
       "signal"
       "tailscale-app"
       "transmission"
@@ -60,6 +54,7 @@
       cleanup = "zap";
     };
   };
+  environment.systemPath = [ "/opt/homebrew/bin" "/opt/homebrew/sbin" ];
 
   # macOS system preferences (converted from bin/.macos)
   system.defaults = {

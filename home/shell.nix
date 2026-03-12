@@ -78,6 +78,21 @@ in
     enableZshIntegration = true;
   };
 
+  programs.ssh = {
+    enable = true;
+    enableDefaultConfig = false;
+    matchBlocks."*" = {
+      addKeysToAgent = "yes";
+      identityFile = "~/.ssh/id_ed25519";
+    };
+  };
+
+  programs.fzf = {
+    enable = true;
+    enableBashIntegration = true;
+    enableZshIntegration = true;
+  };
+
   programs.bash = {
     enable = true;
     inherit shellAliases;
@@ -128,6 +143,7 @@ in
       share = true;
     };
 
+    syntaxHighlighting.enable = true;
     enableCompletion = true;
     completionInit = ''
       zstyle ':completion:*' menu select
@@ -155,11 +171,6 @@ in
       bindkey '^e' end-of-line
 
       ${shellFunctions}
-
-      # Source fzf config
-      if [[ -f "$HOME/.fzf.zsh" ]]; then
-        source "$HOME/.fzf.zsh"
-      fi
 
       # Source local machine-specific config
       if [[ -r "$HOME/.profile.local" ]] && [[ -f "$HOME/.profile.local" ]]; then

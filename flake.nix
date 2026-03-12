@@ -48,6 +48,7 @@
     {
       darwinConfigurations."daMacStudio" = mkDarwin "daMacStudio";
       darwinConfigurations."daMBP" = mkDarwin "daMBP";
+      darwinConfigurations."daMacBook" = mkDarwin "daMacBook";
 
       formatter.${system} = inputs.nixpkgs.legacyPackages.${system}.nixfmt;
     };

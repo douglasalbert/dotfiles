@@ -22,7 +22,6 @@
     colima
     docker-compose
     fd
-    fzf
     gh
     go
     gst_all_1.gstreamer
