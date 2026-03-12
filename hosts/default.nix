@@ -33,6 +33,7 @@
     ];
 
     casks = [
+      "aerospace"
       "claude"
       "claude-code"
       "ghostty"
@@ -43,6 +44,15 @@
       "transmission"
       "zed"
     ];
+
+    masApps = {
+      "Infuse 7" = 1136220934;
+      "Keka" = 470158793;
+      "Reeder." = 6475002485;
+      "Things 3" = 904280696;
+      "UTM" = 1538878817;
+      "wBlock" = 6746388723;
+    };
 
     onActivation = {
       autoUpdate = false;
