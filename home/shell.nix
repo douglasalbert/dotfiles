@@ -52,6 +52,7 @@ in
 
   home.sessionPath = [
     "$HOME/.local/bin"
+    "/Applications/Obsidian.app/Contents/MacOS"
   ];
 
   programs.starship = {

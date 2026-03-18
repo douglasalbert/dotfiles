@@ -35,9 +35,11 @@
     casks = [
       "aerospace"
       "claude"
+      "obsidian"
       "claude-code"
       "ghostty"
       "google-chrome"
+      "granola"
       "iina"
       "signal"
       "tailscale-app"
@@ -80,6 +82,7 @@
       NSAutomaticPeriodSubstitutionEnabled = false;
       NSAutomaticQuoteSubstitutionEnabled = false;
       NSAutomaticSpellingCorrectionEnabled = false;
+      AppleICUForce24HourTime = true;
       AppleShowAllExtensions = true;
       ApplePressAndHoldEnabled = false;
       KeyRepeat = 1;
@@ -249,6 +252,9 @@
     /usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist 2>/dev/null || true
     /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist 2>/dev/null || true
   '';
+
+  # Enable TouchID for sudo
+  security.pam.services.sudo_local.touchIdAuth = true;
 
   # Used for backwards compatibility
   system.stateVersion = 5;
