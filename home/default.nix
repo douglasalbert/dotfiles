@@ -38,6 +38,7 @@
     shellcheck
     shfmt
     signal-cli
+    television
     tree
     uv
     wget

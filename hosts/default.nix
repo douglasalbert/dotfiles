@@ -29,14 +29,15 @@
     brews = [
       "gemini-cli"
       "container"
+      "mas"
       "macos-trash"
+      "mole"
     ];
 
     casks = [
       "aerospace"
       "claude"
       "obsidian"
-      "claude-code"
       "ghostty"
       "google-chrome"
       "granola"
