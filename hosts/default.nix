@@ -21,12 +21,14 @@
     enable = true;
 
     taps = [
+      "eugene1g/safehouse"
       "nikitabobko/tap"
       "osx-cross/arm"
       "osx-cross/avr"
     ];
 
     brews = [
+      "eugene1g/safehouse/agent-safehouse"
       "gemini-cli"
       "container"
       "mas"

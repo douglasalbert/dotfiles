@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   imports = [
@@ -46,4 +46,10 @@
   ];
 
   home.file.".config/aerospace/aerospace.toml".source = ../files/aerospace.toml;
+
+  home.activation.piTools = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    mkdir -p $HOME/.pi/agent/bin
+    ln -sf "$(readlink -f /etc/profiles/per-user/da/bin/fd)" $HOME/.pi/agent/bin/fd
+    ln -sf "$(readlink -f /etc/profiles/per-user/da/bin/rg)" $HOME/.pi/agent/bin/rg
+  '';
 }
