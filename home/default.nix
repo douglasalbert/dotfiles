@@ -19,7 +19,6 @@
   home.packages = with pkgs; [
     actionlint
     ast-grep
-    colima
     docker-compose
     fd
     gh
