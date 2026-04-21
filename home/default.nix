@@ -6,6 +6,7 @@
     ./git.nix
     ./tmux.nix
     ./vim.nix
+    ./nvim.nix
     ./ghostty.nix
   ];
 
