@@ -21,6 +21,7 @@
     enable = true;
 
     taps = [
+      "arthur-ficial/tap"
       "eugene1g/safehouse"
       "nikitabobko/tap"
       "osx-cross/arm"
@@ -28,6 +29,7 @@
     ];
 
     brews = [
+      "arthur-ficial/tap/apfel"
       "eugene1g/safehouse/agent-safehouse"
       "gemini-cli"
       "container"
