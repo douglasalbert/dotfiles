@@ -1,0 +1,48 @@
+# ~/.zshrc — managed by personal/dotfiles (non-nix branch)
+
+[ -r "$HOME/.config/dotfiles/profile.common" ] && source "$HOME/.config/dotfiles/profile.common"
+
+# History (from programs.zsh.history)
+HISTSIZE=50000000
+SAVEHIST=50000000
+HISTFILE="$HOME/.zsh_history"
+setopt EXTENDED_HISTORY HIST_EXPIRE_DUPS_FIRST HIST_IGNORE_DUPS HIST_IGNORE_SPACE SHARE_HISTORY
+
+# Options (from programs.zsh.initContent)
+unsetopt menu_complete flowcontrol
+setopt prompt_subst always_to_end auto_menu complete_in_word hist_verify interactivecomments
+
+# zsh-completions (from brew) — must precede compinit
+if [ -n "${HOMEBREW_PREFIX:-}" ]; then
+  fpath=("$HOMEBREW_PREFIX/share/zsh-completions" "$HOMEBREW_PREFIX/share/zsh/site-functions" $fpath)
+fi
+
+# Completion (from programs.zsh.completionInit)
+zstyle ':completion:*' menu select
+zstyle ':completion:*' completer _complete
+zstyle ':completion:*' matcher-list "" "m:{[:lower:][:upper:]}={[:upper:][:lower:]}" "+l:|=* r:|=*"
+autoload -U compinit && compinit
+zmodload -i zsh/complist
+
+# Vi keybindings with emacs line-nav
+bindkey -v
+bindkey '^a' beginning-of-line
+bindkey '^e' end-of-line
+
+# Shell integrations — syntax-highlighting MUST be last
+command -v starship >/dev/null 2>&1 && eval "$(starship init zsh)"
+command -v zoxide   >/dev/null 2>&1 && eval "$(zoxide init zsh)"
+
+if [ -n "${HOMEBREW_PREFIX:-}" ]; then
+  [ -f "$HOMEBREW_PREFIX/opt/fzf/shell/key-bindings.zsh" ] && source "$HOMEBREW_PREFIX/opt/fzf/shell/key-bindings.zsh"
+  [ -f "$HOMEBREW_PREFIX/opt/fzf/shell/completion.zsh" ]   && source "$HOMEBREW_PREFIX/opt/fzf/shell/completion.zsh"
+fi
+
+command -v carapace >/dev/null 2>&1 && source <(carapace _carapace zsh)
+
+if [ -n "${HOMEBREW_PREFIX:-}" ] && [ -f "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
+  source "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+fi
+
+# Local overrides (not committed; per-machine secrets)
+[[ -r "$HOME/.profile.local" && -f "$HOME/.profile.local" ]] && source "$HOME/.profile.local"

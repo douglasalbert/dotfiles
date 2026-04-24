@@ -4,54 +4,61 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-Personal dotfiles for macOS (Apple Silicon), managed declaratively with **nix-darwin** (system-level macOS config) + **home-manager** (user-level dotfiles/packages). Supports both bash and zsh shells.
+Personal dotfiles for macOS (Apple Silicon) installed via **Homebrew** +
+**Makefile** + symlinks. This is the `non-nix-install` branch — the nix-darwin +
+home-manager version lives on `main`.
 
 ## Commands
 
-- `darwin-rebuild switch --flake .` — Apply system + home-manager config
-- `nix flake check` — Validate flake syntax
-- `nix flake update` — Update flake inputs (nixpkgs, nix-darwin, home-manager)
+- `make check` — dry-run; print per-file status and diff without writing anything
+- `make install` — full install: Homebrew + Brewfile + symlinks + macOS defaults
+- `make symlinks` — just the symlink pass (and vim-plug bootstrap)
+- `make macos-defaults` — user-scoped `defaults write` only
+- `make macos-defaults-sudo` — system-scoped defaults (needs sudo)
 
 ## Architecture
 
 ```
-flake.nix                  # Flake entry point (aarch64-darwin, host=daMacStudio)
-hosts/default.nix          # nix-darwin system config (macOS defaults from bin/.macos)
-home/
-├── default.nix            # home-manager entry (imports, packages, file mappings)
-├── shell.nix              # bash + zsh config (aliases, exports, functions, path)
-├── git.nix                # programs.git config (aliases, extraConfig, ignores)
-├── tmux.nix               # programs.tmux config
-└── vim.nix                # vim/neovim config (vimrc, vim-plug, shared nvim setup)
-files/
-├── bash_prompt            # Raw bash prompt file (sourced via initExtra)
-├── zsh_prompt             # Raw zsh prompt file (sourced via initExtra)
-└── vimrc                  # Raw vimrc (vim-plug plugins, settings, mappings)
-bin/.macos                 # Legacy macOS defaults script (kept as reference)
+Makefile                     # entry point — wraps the scripts/
+Brewfile                     # brew bundle input (taps, brews, casks)
+scripts/
+├── manifest.sh              # shared: REPO_ROOT + SYMLINKS array (source:target)
+├── check.sh                 # dry-run; diffs existing files vs. repo sources
+├── symlinks.sh              # create symlinks; back up conflicting regular files
+├── brew-install.sh          # install Homebrew if missing
+├── macos-defaults.sh        # defaults write + PlistBuddy + chflags (user-scoped)
+└── macos-defaults-sudo.sh   # system-scoped defaults (opt-in)
+files/                       # source of truth for every dotfile (symlinked into $HOME)
+├── profile.common           # shared env/PATH/aliases/function (sourced by bash + zsh)
+├── zshrc                    # zsh-only: history, options, completion, integrations
+├── bashrc                   # bash-only: shopt, integrations, completions
+├── bash_profile             # sources bashrc for login shells
+├── gitconfig                # global git config (work email)
+├── gitignore_global         # core.excludesfile contents
+├── tmux.conf
+├── vimrc                    # shared by vim and nvim; plug block inline
+├── ssh_config               # ~/.ssh/config
+├── aerospace.toml
+├── colima.yaml
+└── ghostty/
+    ├── config
+    └── themes/{dark-ergo,light-ergo}
+docs/superpowers/specs/2026-04-24-non-nix-install-design.md   # design doc
 ```
-
-### Shell startup
-
-**Bash**: home-manager sets shellOptions, shellAliases, sessionVariables, sessionPath, then `initExtra` sources `~/.bash_prompt`, functions, and `~/.bash_profile.local`.
-
-**Zsh**: home-manager sets history, completions, shellAliases, sessionVariables, sessionPath, then `initExtra` sets zsh options, vi keybindings, sources `~/.zsh_prompt`, `~/.fzf.zsh`, functions, and `~/.profile.local`.
-
-## Key Files
-
-| Nix File | Purpose |
-|---|---|
-| `home/shell.nix` | Shell aliases, exports, PATH, functions, bash/zsh options |
-| `home/git.nix` | Git aliases, core config, URL rewrites, global ignores |
-| `home/tmux.nix` | tmux keybindings, mouse, status bar styling |
-| `home/vim.nix` | vim/neovim shared config, vim-plug bootstrap, directory setup |
-| `hosts/default.nix` | macOS system defaults (Dock, Finder, trackpad, screenshots, app prefs) |
 
 ## Conventions
 
-- Zsh uses vi keybindings (`bindkey -v`) with `^a`/`^e` overrides for line navigation
-- Git is configured for SSH push via `git@github.com:` URL rewriting
-- Vim and neovim share the same vimrc; plugins are managed by vim-plug (run `:PlugInstall` after changes to plugin list)
-- Default editor is nvim
-- Machine-specific secrets belong in `.bash_profile.local` (bash) or `.profile.local` (zsh), not in this repo
-- Architecture: `aarch64-darwin` (Apple Silicon)
-- Hostname: `daMacStudio`
+- `scripts/manifest.sh` is the single source of truth for what gets symlinked
+  where — `check.sh` and `symlinks.sh` both source it.
+- `files/profile.common` is installed at `~/.config/dotfiles/profile.common`;
+  `files/zshrc` and `files/bashrc` source it from that path. The repo can live
+  anywhere on disk.
+- Conflicting regular files get backed up to `<target>.pre-dotfiles.bak` (or
+  `.pre-dotfiles.bak.YYYYMMDDhhmmss` if a prior backup exists) — never
+  silently overwritten.
+- Target path already a directory → `symlinks.sh` aborts; resolve manually.
+- Zsh uses vi keybindings (`bindkey -v`) with `^a`/`^e` overrides.
+- Default editor is vim (set in `gitconfig`); neovim is installed for actual use.
+- Machine-specific secrets go in `~/.bash_profile.local` (bash) or
+  `~/.profile.local` (zsh), never in this repo.
+- Architecture: `aarch64-darwin` (Apple Silicon).

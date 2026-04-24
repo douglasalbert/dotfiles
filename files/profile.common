@@ -1,0 +1,49 @@
+# Shared shell profile — sourced by both bash and zsh.
+# Installed to ~/.config/dotfiles/profile.common via the symlink manifest.
+
+# Homebrew shellenv — sets HOMEBREW_PREFIX and adds /opt/homebrew/{bin,sbin} to PATH
+if [ -x /opt/homebrew/bin/brew ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+# Session variables (from home.sessionVariables)
+export HISTSIZE=50000000
+export HISTFILESIZE=50000000
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export MANPAGER="less -X"
+export DOCKER_HOST="unix://$HOME/.colima/default/docker.sock"
+
+# PATH (from home.sessionPath)
+export PATH="$HOME/.local/bin:$PATH"
+
+# Docker aliases
+alias dk="docker"
+alias dkps="docker ps"
+alias dki="docker inspect"
+alias dkr="docker restart"
+alias dkl="docker logs --tail=20 -f"
+alias dkc="docker-compose"
+
+# Filesystem aliases
+alias l="ls -hFG"
+alias ls="ls -hFG"
+alias ll="ls -lhFG"
+alias la="ls -Al"
+alias lk="ls -lSr"
+alias lc="ls -ltcr"
+alias lu="ls -ltur"
+alias lt="ls -ltr"
+alias lm="ls -al |more"
+alias lr="ls -lR"
+alias tree="tree -Csu"
+alias ..="cd .."
+
+# Unmount external volumes after cleaning macOS metadata
+dotcleanunmount() {
+  dot_clean -m "$1"
+  [ -d "$1/.Spotlight-V100" ] && rm -rf "$1/.Spotlight-V100"
+  [ -d "$1/Trashes" ]         && rm -rf "$1/Trashes"
+  [ -d "$1/.fseventsd" ]      && rm -rf "$1/.fseventsd"
+  diskutil unmount "$1"
+}

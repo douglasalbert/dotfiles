@@ -1,0 +1,2 @@
+# ~/.bash_profile — ensure .bashrc is sourced for login shells
+[ -f "$HOME/.bashrc" ] && source "$HOME/.bashrc"

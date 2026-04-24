@@ -1,0 +1,17 @@
+theme = light:light-ergo,dark:dark-ergo
+window-theme = system
+font-family = "SF Mono Powerline"
+keybind = shift+enter=text:\n
+font-thicken = true
+minimum-contrast = 1.1
+window-padding-x = 12
+window-padding-y = 12
+macos-titlebar-style = hidden
+background-opacity = 0.95
+background-blur-radius = 20
+mouse-hide-while-typing = true
+scrollback-limit = 100000
+macos-option-as-alt = true
+clipboard-read = allow
+clipboard-write = allow
+clipboard-paste-protection = true

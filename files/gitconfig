@@ -1,0 +1,103 @@
+[user]
+    name = Douglas Albert
+    email = dalbert@guidewire.com
+
+[github]
+    user = douglasalbert
+
+[core]
+    autocrlf = input
+    whitespace = space-before-tab,-indent-with-non-tab,trailing-space
+    trustctime = false
+    editor = vim
+    excludesfile = ~/.gitignore_global
+
+[alias]
+    tree = log --graph --full-history --all --color --date=short --pretty=format:\"%Cred%x09%h %Creset%ad%Cblue%d %Creset %s %C(bold)(%an)%Creset\"
+    graph = log --graph --full-history --all --color --date=short --pretty=format:\"%C(yellow)%H%C(green)%d%C(reset)%n%x20%cd%n%x20%cn%x20(%ce)%n%x20%s%n\"
+    up = !git fetch && git rebase --autostash FETCH_HEAD
+    l = log --pretty=oneline --graph --abbrev-commit
+    ll = log --pretty=format:\"%C(yellow)%h%Cred%d\\\\ %Creset%s%Cblue\\\\ [%cn]\" --decorate --numstat
+    a = add
+    ap = add -p
+    c = commit --verbose
+    ca = commit -a --verbose
+    cm = commit -m
+    cam = commit -a -m
+    m = commit --amend --verbose
+    d = diff
+    ds = diff --stat
+    dc = diff --cached
+    s = status
+    co = checkout
+    cob = checkout -b
+    b = !git for-each-ref --sort='-authordate' --format='%(authordate)%09%(objectname:short)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'
+    r = reset
+    r1 = reset HEAD^
+    r2 = reset HEAD^^
+    rh = reset --hard
+    rh1 = reset HEAD^ --hard
+    rh2 = reset HEAD^^ --hard
+    sl = stash list
+    sa = stash apply
+    ss = stash save
+    p = !\"git pull; git submodule foreach git pull origin master\"
+    pr = !\"pr() { git fetch origin pull/$1/head:pr-$1; git checkout pr-$1; }; pr\"
+    la = !git config -l | grep alias | cut -c 7-
+
+[apply]
+    whitespace = fix
+
+[diff]
+    renames = copies
+
+[fetch]
+    prune = true
+
+[help]
+    autocorrect = 1
+
+[merge]
+    log = true
+    ff = only
+
+[pull]
+    rebase = true
+
+[push]
+    default = current
+
+[status]
+    short = true
+    branch = true
+
+[url "git@github.com:"]
+    pushInsteadOf = https://github.com/
+    pushInsteadOf = github:
+    pushInsteadOf = git://github.com/
+
+[url "git://github.com/"]
+    insteadOf = github:
+
+[url "git@gist.github.com:"]
+    insteadOf = gst:
+    pushInsteadOf = gist:
+    pushInsteadOf = git://gist.github.com/
+
+[url "git://gist.github.com/"]
+    insteadOf = gist:
+
+[rerere]
+    enabled = true
+
+[credential "https://github.com"]
+    helper = !/usr/bin/env gh auth git-credential
+
+[credential "https://gist.github.com"]
+    helper = !/usr/bin/env gh auth git-credential
+
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true

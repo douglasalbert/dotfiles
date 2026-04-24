@@ -1,3 +1,13 @@
+" vim-plug plugins (bootstrapped by scripts/symlinks.sh)
+call plug#begin()
+Plug 'tpope/vim-fugitive'
+Plug 'vim-airline/vim-airline'
+Plug 'altercation/vim-colors-solarized'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'sheerun/vim-polyglot'
+Plug 'nanotee/zoxide.vim'
+call plug#end()
+
 set nocompatible
 
 " airline config
