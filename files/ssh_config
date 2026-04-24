@@ -1,3 +1,18 @@
-Host *
-    AddKeysToAgent yes
-    IdentityFile ~/.ssh/id_ed25519
+Include /Users/dalbert/.colima/ssh_config
+
+Host github.com
+  HostName github.com
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/git_ed25519
+
+Host hh.github.com
+  HostName github.com
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/hh_ed25519
+
+Host bitbucket.org
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/git_ed25519

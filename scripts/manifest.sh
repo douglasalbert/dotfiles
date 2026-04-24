@@ -15,7 +15,7 @@ SYMLINKS=(
   "$REPO_ROOT/files/gitignore_global:$HOME/.gitignore_global"
   "$REPO_ROOT/files/tmux.conf:$HOME/.tmux.conf"
   "$REPO_ROOT/files/vimrc:$HOME/.vimrc"
-  "$REPO_ROOT/files/vimrc:$HOME/.config/nvim/init.vim"
+  "$REPO_ROOT/files/nvim.lua:$HOME/.config/nvim/init.lua"
   "$REPO_ROOT/files/ssh_config:$HOME/.ssh/config"
   "$REPO_ROOT/files/aerospace.toml:$HOME/.config/aerospace/aerospace.toml"
   "$REPO_ROOT/files/colima.yaml:$HOME/.colima/default/colima.yaml"
@@ -23,3 +23,35 @@ SYMLINKS=(
   "$REPO_ROOT/files/ghostty/themes/dark-ergo:$HOME/.config/ghostty/themes/dark-ergo"
   "$REPO_ROOT/files/ghostty/themes/light-ergo:$HOME/.config/ghostty/themes/light-ergo"
 )
+
+# link_entry "<source>:<target>"
+# Create one symlink, backing up conflicting regular files. Aborts if target
+# is a directory. Idempotent. Returns non-zero on error.
+link_entry() {
+  local entry="$1"
+  local src="${entry%%:*}"
+  local tgt="${entry#*:}"
+
+  mkdir -p "$(dirname "$tgt")"
+
+  if [ -d "$tgt" ] && [ ! -L "$tgt" ]; then
+    echo "ERROR: $tgt is a directory; resolve manually" >&2
+    return 1
+  fi
+
+  if [ -f "$tgt" ] && [ ! -L "$tgt" ]; then
+    if cmp -s "$tgt" "$src"; then
+      rm -f "$tgt"
+    else
+      local backup="$tgt.pre-dotfiles.bak"
+      if [ -e "$backup" ]; then
+        backup="$tgt.pre-dotfiles.bak.$(date +%Y%m%d%H%M%S)"
+      fi
+      mv "$tgt" "$backup"
+      echo "Backed up $tgt → $backup"
+    fi
+  fi
+
+  ln -sfn "$src" "$tgt"
+  echo "Linked $tgt → $src"
+}

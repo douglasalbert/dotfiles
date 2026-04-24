@@ -11,8 +11,9 @@ home-manager version lives on `main`.
 ## Commands
 
 - `make check` — dry-run; print per-file status and diff without writing anything
-- `make install` — full install: Homebrew + Brewfile + symlinks + macOS defaults
-- `make symlinks` — just the symlink pass (and vim-plug bootstrap)
+- `make install` — full install: Homebrew + Brewfile + symlinks + vim + macOS defaults
+- `make symlinks` — just the symlink pass
+- `make vim` — symlink vimrc, bootstrap vim-plug, run :PlugInstall for vim + nvim
 - `make macos-defaults` — user-scoped `defaults write` only
 - `make macos-defaults-sudo` — system-scoped defaults (needs sudo)
 
@@ -22,9 +23,10 @@ home-manager version lives on `main`.
 Makefile                     # entry point — wraps the scripts/
 Brewfile                     # brew bundle input (taps, brews, casks)
 scripts/
-├── manifest.sh              # shared: REPO_ROOT + SYMLINKS array (source:target)
+├── manifest.sh              # shared: REPO_ROOT + SYMLINKS array + link_entry()
 ├── check.sh                 # dry-run; diffs existing files vs. repo sources
-├── symlinks.sh              # create symlinks; back up conflicting regular files
+├── symlinks.sh              # create every symlink via link_entry()
+├── vim-setup.sh             # symlink vimrc, bootstrap vim-plug, :PlugInstall
 ├── brew-install.sh          # install Homebrew if missing
 ├── macos-defaults.sh        # defaults write + PlistBuddy + chflags (user-scoped)
 └── macos-defaults-sudo.sh   # system-scoped defaults (opt-in)
